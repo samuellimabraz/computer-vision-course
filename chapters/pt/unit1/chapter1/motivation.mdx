@@ -1,0 +1,47 @@
+# Visão
+
+A maioria de nós sabe que a luz solar é responsável por sustentar a vida em nosso planeta, mas você já se perguntou como isso moldou nossas vidas? Para começar, quase todo ser na Terra possui alguma forma de senti-la (até mesmo algumas bactérias e organismos unicelulares). Os humanos compartilham essa habilidade, mas nós possuímos um sistema muito mais complexo para interagir com a luz. Capturamos a luz através de uma lente que, em seguida, emite um sinal elétrico em nossos olhos que passa por uma estrutura semelhante a um cabo (nosso sistema nervoso), e esse sinal é reconstruído em nossos cérebros para nos dizer como é o ambiente ao nosso redor.
+
+Esse processo é o que chamamos de visão. É um passo fundamental em nossa evolução. É tão importante que os cientistas já hipotetizaram que o desenvolvimento de sistemas nervosos centralizados (que, em última instância, nos levaram aos nossos cérebros de grande porte) segue o advento da visão. Faz sentido: sem sensores capturando tamanha quantidade de informações, por que desperdiçar recursos na criação da máquina necessária para desenvolvê-la?
+
+## Importância da Visão para os Humanos
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/main/cropped_motivation.png" alt="Imagem em aquarela de três pessoas em um parque brincando com uma bola"/> 
+</div>
+
+Se você já chutou uma bola de forma espontânea, seu cérebro realiza uma infinidade de tarefas inconscientemente em uma fração de segundo. Ele identifica corretamente a bola, acompanha seu movimento, prevê sua trajetória, calcula a velocidade com que a bola chegaria até você, antecipa a trajetória do seu pé, ajusta a força e o ângulo de impacto e envia o sinal do seu cérebro para seu pé para que ele mude de posição. Transformar uma imagem em um insumo (neste caso, o sinal captado pela nossa retina) e convertê-la em informação (chutar a bola) é o cerne da visão computacional. Abordaremos esse assunto com mais detalhes no próximo capítulo.
+
+Surpreendentemente, não precisamos de uma educação formal para isso. Não frequentamos aulas para a maioria das decisões que tomamos diariamente. Nenhuma aula de matemática mental 101 pode estimar a força necessária do pé para chutar uma bola. Aprendemos isso por tentativa e erro ao longo do crescimento. E alguns de nós talvez nunca tenham aprendido isso de forma consciente. Este é um contraste marcante com a forma como desenvolvemos programas. Os programas são majoritariamente baseados em regras.
+
+Vamos tentar replicar apenas a primeira tarefa que nosso cérebro realiza: detectar que há uma bola. Uma maneira de fazer isso é definir o que é uma bola e então procurar exaustivamente por uma na imagem. Definir o que é uma bola é, na verdade, difícil. Bolas podem ser tão pequenas quanto bolas de tênis, mas também tão grandes quanto bolas de Zorb, então o tamanho não nos ajudará muito. Poderíamos tentar descrever sua forma, mas algumas bolas, como as de rugby, nem sempre são perfeitamente esféricas. Nem tudo que é esférico é uma bola; caso contrário, bolhas, doces e até o nosso planeta seriam considerados bolas.
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/main/balls.png" alt="Bolas"/>
+</div>
+
+
+## Programação Pura vs Abordagem de Aprendizado de Máquina
+Poderíamos fazer uma definição provisória e dizer: “Uma bola é um objeto esférico ou semelhante a uma esfera utilizado em esportes ou brincadeiras”. Isso parece correto, mas nos deparamos com outro problema. Como você saberia se eles estão jogando um esporte? O que você usaria para detectar que estão jogando? E se for um cachorro com uma bola? Isso não seria uma bola? E se for uma bola por si só, sem pessoas e sem esporte? Mas e algo como uma peteca de badminton? É algo com que jogamos, que não é perfeitamente esférico, mas não o consideramos uma bola. Todas essas nuances somam-se ao ponto de que um problema simples que os humanos resolvem inconscientemente já se mostra difícil de ser quebrado em regras simples.
+
+Nós mesmos sabemos dessas coisas. Esse entendimento implícito vem das imagens mentais que construímos ao longo dos anos sobre como as bolas se parecem. Embora uma peteca de badminton não se encaixe nessa imagem mental de bola, é difícil explicar o porquê. Não se deve apenas ao seu tamanho ou às penas. Existem bolas de tamanho semelhante e, mesmo se cobríssemos uma bola com penas, ainda a reconheceríamos como uma bola.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/743a2a115b53f258c9e6bc7744534d9e03b8a124/motivation_04.png" alt="Uma bola coberta com penas"/>
+</div>
+
+Tudo isso serve para mostrar que nossa capacidade de distinguir objetos vai além de definições estritas; frequentemente generalizamos a partir de conceitos relacionados e dependemos de pistas de contexto. Quando um conceito familiar assume uma forma diferente, ainda conseguimos identificá-lo sem grande dificuldade – essa habilidade é natural para nós. Contudo, ela não é inerente a sistemas governados por regras rígidas e codificadas.
+
+Isso evidencia a necessidade de sistemas mais robustos – aqueles capazes de se adaptar a uma variedade de cenários. É por isso que o campo está tão intimamente relacionado à inteligência artificial (IA). A visão é rica em contexto, e precisamos de modelos capazes de aproveitar essas pistas de forma similar ao que fazemos.
+
+Vamos tomar o exemplo de Indiana Jones fugindo de uma rocha. Há uma "bola" (a rocha) e há corrida, mas dificilmente alguém chamaria aquilo de esporte! Sabemos disso porque contamos com algumas pistas contextuais. A “bola” da qual Indiana Jones está fugindo parece pesada e do dobro do seu tamanho. Seu rosto reflete aflição. O espaço é muito estreito e parece uma caverna, o que é incomum para esportes. Além disso, reconhecemos seu traje, que normalmente não é usado por jogadores.
+
+## A Motivação por Trás de Sistemas Artificiais que Simulam Visão e Cognição Humanas
+
+Apesar de compartilharem entradas e saídas semelhantes, visão humana e visão computacional são processos distintos. Às vezes se sobrepõem, mas a visão computacional foca no desenvolvimento e interpretação de algoritmos e modelos para sistemas visuais e suas decisões. Não se limita a replicar a visão humana; pode resolver problemas tediosos, demorados, caros ou propensos a erros para humanos.
+Nosso exemplo da bola ainda é simples, e você pode pensar que não é super útil. Entretanto, um modelo capaz de rastrear uma bola pode ser utilizado em eventos esportivos para proporcionar decisões mais rápidas e justas durante uma partida. Com a popularização de modelos de image-to-text (imagem para texto) e text-to-speech (texto para voz), também poderíamos tornar eventos esportivos ao vivo mais acessíveis para pessoas com deficiência visual, acompanhando automaticamente a bola e seus jogadores e descrevendo-os em tempo real. Assim, mesmo casos de uso simples podem ter um impacto positivo na sociedade. Discutiremos mais sobre isso na Seção 3.
+
+Estamos agora à beira de um renascimento em IA. Um momento no tempo em que podemos treinar, implantar e compartilhar nossos modelos livremente. Um momento em que nossos modelos podem detectar coisas em imagens que nós mesmos não conseguiríamos perceber.
+
+Os limites da visão computacional também foram expandidos. Agora podemos gerar imagens a partir de texto e descrever imagens em texto. E podemos fazer isso diretamente dos nossos smartphones. Aplicações de visão computacional estão em toda parte. As possibilidades estão ao nosso alcance, e é precisamente isso que exploraremos neste curso.
+
+Seja bem-vindo(a) ao campo da visão computacional. Sente-se. Aproveite a jornada. Será incrível.
