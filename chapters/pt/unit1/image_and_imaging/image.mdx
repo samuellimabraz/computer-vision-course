@@ -1,0 +1,62 @@
+# Imagem
+
+Pode parecer estranho que, em um curso de Visão Computacional, expliquemos o que é uma imagem. Presumivelmente, você chegou aqui primeiramente porque queria saber mais sobre o processamento de formatos de imagem e vídeo. Pode parecer trivial, mas prepare-se para uma surpresa! Quando se trata de imagens, há muito mais do que se vê a olho nu (trocadilho intencional).
+
+## Definição de Imagem
+
+Uma imagem é uma representação visual de um objeto, cena, pessoa ou até mesmo um conceito. Podem ser fotografias, pinturas, desenhos, esquemas, digitalizações e muito mais! Uma das coisas mais surpreendentes é que uma imagem também é uma função. Mais precisamente, uma imagem é uma função *n*-dimensional. Inicialmente, consideraremos ela como bidimensional \\(n=2\\). Vamos chamá-la de \\(F(X,Y)\\), onde \\(X\\) e \\(Y\\) são coordenadas espaciais. Não se distraia com o nome sofisticado. Coordenadas espaciais são apenas o sistema que usamos para descrever as posições de objetos em um espaço físico, sendo o sistema cartesiano 2D o mais comum. A amplitude de \\(F\\) em um par de coordenadas \\(x_i, y_i\\) corresponde à intensidade ou nível de cinza da imagem naquele ponto. A intensidade é o que proporciona a percepção de claro e escuro. Normalmente, quando temos o par de coordenadas \\(x_1\\) e \\(y_1\\), referimo-nos a eles como *pixels* (elementos de imagem).
+
+Imagens são discretas, enquanto os processos envolvidos em sua formação são contínuos. Os processos de geração de imagens serão discutidos no próximo capítulo. Por ora, o que importa é que o valor de \\(F\\) em coordenadas específicas possui um significado físico. A função \\(F(X,Y)\\) é caracterizada por dois componentes: a quantidade de iluminação proveniente da fonte e a quantidade de iluminação refletida pelo objeto na cena. Imagens de intensidade também são limitadas em seus valores, já que a função é tipicamente não-negativa e seus valores são finitos.
+
+Essa não é a única forma de se criar uma imagem. Às vezes, elas são geradas por computadores, com ou sem a ajuda de IA. Temos um capítulo dedicado a imagens que contam com uma ajudinha da IA. Grande parte da terminologia que introduziremos aqui ainda será aplicável.
+
+Um tipo diferente de imagem é a imagem volumétrica ou 3D. O número de dimensões em imagens 3D é igual a três. Assim, temos a função \\(F(X,Y,Z)\\). Grande parte do nosso raciocínio se mantém, com a única diferença de que o trio \\(x_i, y_i, z_i\\) é chamado de *voxel* (elemento de volume). Essas imagens podem ser adquiridas em 3D; isto é, são obtidas de forma que possam ser reconstruídas em um espaço tridimensional. Exemplos incluem digitalizações médicas, ressonância magnética (MRI, do inglês *Magnetic Resonance Imaging*) e certos tipos de microscópios. Também é possível reconstruir uma imagem 3D a partir de uma 2D. A reconstrução é uma tarefa desafiadora, que também possui seu capítulo dedicado.
+
+Agora que já discutimos o espaço, podemos falar sobre cor. A boa notícia é que você provavelmente já ouviu falar de canais de imagem. Talvez você não entenda o que eles significam, mas não tema! Canais de imagem são simplesmente os diferentes componentes de cor que compõem uma imagem. Em referência à \\(F(X,Y)\\), teremos uma \\(F\\) para cada componente de cor. Cada cor possui seu próprio nível de intensidade. Para um canal que capta a cor vermelha, por exemplo, uma alta intensidade significa que a cor está fortemente presente e uma baixa intensidade indica que há pouco ou nenhum vermelho.
+
+Se você estiver observando apenas a \\(F(x,y)\\) de uma cor, ela varia de 0 a 255, onde 0 representa nenhuma intensidade e 255 a intensidade máxima. Em sistemas de cor diferentes, a combinação desses valores pode variar. Portanto, é importante entender a origem dos seus dados ao interpretar esses valores.
+
+Existem tipos especiais de imagens em que as coordenadas \\(F(x_i,y_i)\\) não descrevem um valor de intensidade, mas sim rotulam um pixel. O exemplo mais simples de uma operação que resulta em tal imagem é a separação entre primeiro plano (*foreground*) e fundo (*background*). Tudo que for primeiro plano recebe o rótulo 1, e tudo que for fundo recebe o rótulo 0. Essas imagens são comumente referidas como imagens rotuladas. Quando há apenas dois rótulos, como no nosso exemplo, chamamos de imagens binárias ou *masks*.
+
+Você pode ter ouvido falar de imagens 4D ou até 5D. Essa terminologia é usada principalmente por profissionais das áreas biomédica e de microscopia. Novamente, não tema! Essa nomenclatura surgiu a partir de pessoas que capturam dados volumétricos ao longo do tempo, com diferentes canais ou diferentes modalidades de imageamento (por exemplo, foto e raio-X). A ideia é que cada nova fonte de informação se torne uma dimensão extra. Assim, uma imagem 5D é uma imagem volumétrica (3D) adquirida ao longo do tempo (4D) e utilizando diferentes canais (5D).
+
+Mas como as imagens são representadas em computadores? Geralmente, por meio de matrizes. É fácil visualizar uma imagem como uma matriz numérica 2D, o que é vantajoso, pois os computadores lidam muito bem com arrays (matrizes). Enxergar matrizes como imagens ajuda a compreender alguns dos processos em Redes Neurais Convolucionais (CNNs, do inglês *Convolutional Neural Networks*) e em pré-processamento de imagens. Veremos mais detalhes adiante.
+
+Alternativamente, as imagens podem ser representadas como grafos, onde cada nó é uma coordenada e as arestas representam as coordenadas vizinhas. Reserve um momento para assimilar essa ideia. Isso também significa que os algoritmos e modelos usados para grafos podem ser aplicados a imagens! O inverso também é verdadeiro – você pode transformar um grafo em uma imagem e analisá-la como se fosse uma fotografia.
+
+Até aqui, propusemos uma definição bastante flexível de imagem. Essa definição pode acomodar diferentes formas de aquisição de dados visuais, mas todas ressaltam o mesmo aspecto crucial: imagens são pontos de dados que contêm muita informação espacial. As principais diferenças residem na resolução espacial (seja 2D ou 3D), nos sistemas de cores (RGB ou outros) e na existência ou não de um componente temporal.
+
+## Imagens vs. Outros Tipos de Dados
+
+### Diferença entre Imagem e Vídeo
+
+Se você tem acompanhado, talvez já tenha percebido que vídeos são representações visuais de imagens com um componente temporal. Para a aquisição de imagens 2D, você pode adicionar uma dimensão temporal, de forma que \\(F(X,Y,T)\\) se torna sua função de imageamento.
+
+Imagens podem naturalmente ter um componente oculto no tempo, pois são capturadas em um ponto específico. Diferentes imagens podem estar relacionadas temporalmente. Contudo, imagens e vídeos diferem na forma como amostram essa informação temporal. Uma imagem é uma representação estática em um único instante, enquanto um vídeo é uma sequência de imagens reproduzidas a uma taxa que cria a ilusão de movimento. Essa taxa é o que chamamos de *frames per second* (fps, quadros por segundo).
+
+Isso é tão fundamental que este curso possui um capítulo dedicado a vídeo, onde abordaremos as adaptações necessárias para lidar com essa dimensão adicional.
+
+### Imagens vs. Dados Tabulares
+
+Em dados tabulares, a dimensionalidade é geralmente definida pelo número de *features* (características) — geralmente representadas por colunas — que descrevem um ponto de dados. Em dados visuais, a dimensionalidade geralmente se refere ao número de dimensões que descrevem os dados. Para uma imagem 2D, normalmente referimo-nos aos números \\(x_i\\) e \\(y_i\\) como o tamanho da imagem.
+
+Outro aspecto é a geração de *features* que descrevem os dados visuais. Elas podem ser geradas por pré-processamento tradicional ou aprendidas por meio de métodos de *deep learning*. Chamamos isso de extração de característica (*feature extraction*). Esse processo envolve diferentes algoritmos, os quais são discutidos com mais detalhes no capítulo de extração de *features*. Isso contrasta com a engenharia de *features* para dados tabulares, onde novas *features* são construídas a partir das já existentes.
+
+Dados tabulares frequentemente requerem o tratamento de valores ausentes, codificação de variáveis categóricas e reescalonamento de *features* numéricas. O processo análogo para dados de imagem é o redimensionamento da imagem e a normalização dos valores de intensidade. Chamamos esses processos de pré-processamento, e discutiremos isso com mais detalhes no capítulo "Pré-processamento para Visão Computacional".
+
+### Diferenças-Chave
+
+A tabela abaixo resume os principais aspectos dos diferentes tipos de dados:
+
+|   | Recurso                | Imagem                                               | Vídeo                                                  | Áudio                                                                     | Dados Tabulares                                                          |
+|---|------------------------|------------------------------------------------------|-------------------------------------------------------|---------------------------------------------------------------------------|--------------------------------------------------------------------------|
+| 1 | Tipo                   | Momento único no tempo                               | Sequência de imagens ao longo do tempo                | Momento único no tempo                                                    | Dados estruturados organizados em linhas e colunas                        |
+| 2 | Representação de Dados | Tipicamente uma matriz 2D de pixels                  | Tipicamente uma matriz 3D de quadros (*frames*)                 | Tipicamente um vetor 1D de amostras de áudio                              | Tipicamente uma matriz 2D de *features* (colunas) com cada amostra em uma linha (ex.: planilhas, tabelas de banco de dados) |
+| 3 | Tipos de Arquivos      | JPEG, PNG, RAW, etc.                                 | MP4, AVI, MOV, etc.                                    | WAV, MP3, FLAC, etc.                                                      | CSV, Excel (.xlsx, .xls), formatos de banco de dados, etc.               |
+| 4 | Aumento de Dados (*Data Augmentation*)       | Espelhamento (*flipping*), rotação, recorte (*cropping*)          | Jitter temporal, variações de velocidade, oclusão       | Adição de ruído de fundo, reverberação, manipulação espectral              | ROSE, SMOTE, ADASYN                                                      |
+| 5 | Extração de *Features* | Bordas, texturas, cores                              | Bordas, texturas, cores, fluxo ótico (*optical flow*), trajetórias | Espectrograma, Coeficientes Cepstrais em Frequência Mel (MFCCs), Características cromáticas (*Chroma features*) | Análise estatística, Engenharia de *features*, Agregação de dados          |
+| 6 | Modelos de Aprendizado | CNNs                                                 | RNNs, 3D CNNs                                         | CNNs, RNNs                                                                | Regressão Linear, Árvores de Decisão, Random Forests, Gradient Boosting      |
+| 7 | Tarefas de Machine Learning          | Classificação de imagens, Segmentação, Detecção de Objetos | Reconhecimento de ações em vídeo, modelagem temporal, rastreamento | Reconhecimento de fala, Identificação de locutor, Classificação de gênero musical | Regressão, Classificação, Agrupamento (*Clustering*)                                   |
+| 8 | Custo Computacional    | Menos dispendioso                                    | Mais dispendioso                                       | Moderado a alto                                                           | Geralmente menos dispendioso em comparação com os demais                 |
+| 9 | Aplicações             | Reconhecimento facial para controle de acesso de segurança | Interpretação de Língua de Sinais para comunicação ao vivo | Assistentes de voz, *speech-to-text* (fala para texto), Classificação de gênero musical | Modelagem preditiva, Detecção de fraude, Previsão do tempo                 |
+
