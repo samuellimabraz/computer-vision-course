@@ -1,0 +1,85 @@
+# Fundamentos da Aquisição de Imagens em Processamento Digital
+
+A aquisição de imagens em processamento digital é o primeiro passo para transformar fenômenos físicos (o que vemos na vida real) em uma representação digital (o que vemos em nossos computadores). Tudo se inicia com a interação entre uma fonte de iluminação e o objeto a ser imageado. Essa iluminação pode ser de diversos tipos, desde fontes convencionais de luz até formas mais sofisticadas, como energia eletromagnética ou de ultrassom. A interação resulta em energia que é refletida ou transmitida pelos objetos presentes na cena. Essa energia é capturada por sensores, que transformam uma forma de energia em outra (isto é, transdutores convertendo a energia incidente em tensão elétrica). O sinal de tensão é então digitalizado, resultando em uma imagem digital. Para isso, é necessária tecnologia avançada e calibração precisa para garantir uma representação fiel da cena física. Nas seções seguintes, exploraremos algumas dessas tecnologias.
+
+![A primeira fotografia da Lua pelo Ranger 7 em 1964 (Cortesia da NASA)](https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_3.png)
+
+## Tecnologias de Sensores e Seu Papel na Aquisição de Imagens
+
+Como mencionado anteriormente, o primeiro passo na imagem digital é realizado pelos sensores. Para criar uma imagem bidimensional, elementos sensoriais únicos (como fotodiodos) são deslocados ao longo dos eixos *x* e *y*. Em contraste, as fitas de sensores, mais comuns, capturam imagens de forma linear em uma única direção. Assim, para obter uma imagem 2D completa, essas fitas são movidas de maneira perpendicular. Essa tecnologia é comumente encontrada em dispositivos como scanners de mesa (flatbed scanners) e utilizada em sistemas de imageamento aéreo. Em aplicações mais especializadas, como em imageamento médico (por exemplo, tomografias computadorizadas – CAT scans), são utilizadas fitas de sensores configuradas em anel. Esses arranjos envolvem algoritmos avançados de reconstrução para transformar os dados capturados em imagens significativas.
+
+Arranjos de sensores, como os CCDs (Dispositivos de Carga Acoplada) em câmeras digitais, consistem em matrizes 2D de elementos sensoriais. Eles capturam uma imagem completa sem a necessidade de movimento, pois cada elemento detecta uma parte da cena. Esses arranjos são vantajosos, pois não exigem deslocamento para capturar uma imagem, ao contrário dos elementos sensoriais individuais e das fitas de sensores. A energia capturada é focalizada sobre o arranjo de sensores, convertida em um sinal analógico e, em seguida, digitalizada para formar uma imagem digital.
+
+## Formação e Representação da Imagem Digital
+
+O cerne da formação de imagens digitais é a função \\(f(x,y)\\), que é determinada pela fonte de iluminação \\(i(x,y)\\) e pela refletância \\(r(x,y)\\) da cena.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_6.png" alt="Aquisição de imagem por meio da captação da luz refletida da cena"/>
+</div>
+
+No imageamento por transmissão, como nos raios-X, a transmissividade substitui a reflectividade. A representação digital de uma imagem é essencialmente uma matriz ou array de valores numéricos, cada um correspondendo a um pixel. O processo de transformar dados de imagem contínuos em um formato digital é duplo:
+- **Amostragem (Sampling):** que digitaliza os valores de coordenadas.
+- **Quantização:** que converte os valores de amplitude em quantidades discretas.
+
+A resolução e a qualidade de uma imagem digital dependem significativamente dos seguintes aspectos:
+- O número de amostras e os níveis discretos de intensidade utilizados.
+- A faixa dinâmica do sistema de imageamento, que é a razão entre a intensidade máxima mensurável e a intensidade mínima detectável. Este fator também desempenha um papel crucial na aparência e no contraste da imagem.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_5.png" alt="A primeira fotografia digital por Russell A. Kirsch em 1957"/>
+</div>
+
+## Compreendendo a Resolução em Imageamento Digital
+
+A resolução espacial refere-se ao menor detalhe distinguível em uma imagem e é frequentemente medida em pares de linhas por unidade de distância ou pixels por unidade de distância. A relevância da resolução espacial depende do contexto, variando de acordo com as unidades espaciais utilizadas. Por exemplo, uma câmera de 20 megapixels geralmente oferece uma resolução de detalhe superior à de uma câmera de 8 megapixels.
+
+A resolução de intensidade relaciona-se à menor variação detectável no nível de intensidade e, muitas vezes, é limitada pelas capacidades do hardware. Ela é quantizada em incrementos binários, como 8 bits ou 256 níveis. A percepção dessas variações de intensidade é influenciada por diversos fatores, incluindo ruído, saturação e as capacidades da visão humana.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_7.png" alt="A ilustração da resolução de imagem"/>
+</div>
+
+## Técnicas de Restauração e Reconstrução de Imagens
+
+A restauração de imagens foca em recuperar uma imagem degradada utilizando o conhecimento sobre o fenômeno de degradação. Frequentemente, esse processo envolve a modelagem do processo de degradação e a aplicação de processos inversos para recuperar a imagem original.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_8.jpg" alt="Exemplo de restauração de imagem em que a imagem é recuperada e colorizada"/>
+</div>
+
+Em contraste, o realce (ou melhoria) de imagens é mais subjetivo, pois seu objetivo é aprimorar a aparência visual da imagem. As técnicas de restauração incluem a resolução de problemas como o ruído, que pode se originar de diversas fontes durante a aquisição ou transmissão da imagem. Filtros avançados, tanto adaptativos quanto não adaptativos, são empregados devido à sua capacidade de reduzir o ruído. Em imageamento médico, particularmente na tomografia computadorizada (TC, do inglês Computed Tomography – CT), a reconstrução de imagens a partir de projeções é uma aplicação crucial.
+
+![A primeira fotografia de uma pessoa por Louis Daguerre, 1838, no Boulevard du Temple, em Paris](https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_2.png)
+
+## Cor no Processamento de Imagens
+
+A cor é um descritor poderoso no processamento de imagens, desempenhando um papel crucial na identificação e reconhecimento de objetos. O processamento de imagens coloridas abrange tanto o processamento em pseudo-cor quanto o processamento em cor plena.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_4.png" alt="A primeira fotografia colorida por James Clerk Maxwell em 1861 utilizando 3 filtros de cor"/>
+</div>
+
+O processamento em pseudo-cor atribui cores às intensidades em escala de cinza, enquanto o processamento em cor plena utiliza dados de cor reais provenientes dos sensores. Compreender os fundamentos da cor — incluindo a percepção humana de cor, o espectro de cores e os atributos da luz cromática — é essencial. Os fundamentos da cor envolvem a natureza tricromática da visão humana, que percebe o vermelho, verde e azul. Por outro lado, a percepção de cor refere-se à forma como os três tipos de cones em nossos olhos são estimulados. Finalmente, o espectro de cores é o intervalo de comprimentos de onda no espectro eletromagnético que evocam sensações visuais distintas.
+
+Diferentes modelos de cor, como RGB para monitores e câmeras, e CMY/CMYK para impressão, padronizam a representação de cor no imageamento digital. No modelo de cor RGB, as imagens possuem três componentes (isto é, canais), correspondendo ao vermelho, verde e azul. A profundidade de pixel em imagens RGB determina o número de cores possíveis, sendo que uma imagem típica em cor plena tem uma profundidade de 24 bits (8 bits para cada componente de cor). Isso permite mais de 16 milhões de cores possíveis! O cubo de cores RGB representa a gama de cores alcançável nesse modelo, com a escala de cinza se estendendo do preto ao branco.
+
+<div class="flex justify-center">
+    <img src="https://huggingface.co/datasets/hf-vision/course-assets/resolve/4def8c412ee6b08f4522e818a0474d155363d87b/pic_9.png" alt="Figura 9: Os canais de cor de uma imagem"/>
+</div>
+
+## Compressão de Imagens
+
+A compressão de dados reduz a quantidade de dados necessários para representar a informação. Esse processo distingue entre os dados (o meio de transmitir a informação) e a própria informação. Visando a redundância, ou seja, dados que são irrelevantes ou repetitivos. Por exemplo, uma taxa de compressão de 10:1 indica que há 90% de redundância nos dados.
+
+Na compressão de imagens digitais, particularmente com matrizes de intensidade 2-D, os três principais tipos de redundâncias são:
+
+- **Redundância de codificação:** A redundância de codificação é especialmente prevalente em imagens onde a distribuição dos valores de intensidade não se espalha uniformemente por todos os valores possíveis, o que é evidenciado por um histograma não uniforme. Nessas imagens, alguns valores de intensidade ocorrem com mais frequência do que outros, mas a codificação binária natural atribui o mesmo número de bits para representar cada valor de intensidade, independentemente de sua frequência. Isso significa que valores comuns não são codificados de forma mais eficiente do que valores raros, levando a um uso ineficiente dos bits e, assim, à redundância de codificação. Idealmente, valores mais frequentes deveriam receber códigos mais curtos e valores menos frequentes, códigos mais longos, a fim de minimizar o número de bits utilizados, o que não ocorre com a codificação binária natural em histogramas não uniformes.
+
+- **Redundância espacial e temporal:** A redundância espacial e temporal aparece em valores de pixel correlacionados dentro de uma imagem ou entre quadros de vídeo.
+
+- **Informação irrelevante:** Informação irrelevante inclui dados ignorados pelo sistema visual humano ou desnecessários para o propósito da imagem.
+
+A codificação eficiente leva em consideração as probabilidades de ocorrência, como os valores de intensidade nas imagens. Técnicas como a codificação por comprimento de execução (*run-length encoding*) reduzem a redundância espacial em imagens com linhas de intensidade constante, comprimindo significativamente os dados. De forma similar, a redundância temporal em sequências de vídeo pode ser abordada. Entretanto, a remoção de informação irrelevante resulta na quantização, que implica em uma perda irreversível de informação quantitativa. A teoria da informação, com conceitos como entropia, auxilia na determinação da quantidade mínima de dados necessária para uma representação precisa da imagem. A qualidade da imagem pós-compressão é avaliada utilizando critérios objetivos de fidelidade (funções matemáticas de entrada e saída) e critérios subjetivos de fidelidade (avaliações humanas).
+
+Sistemas de compressão de imagens utilizam codificadores e decodificadores. Os codificadores eliminam redundâncias através de mapeamento (para reduzir a redundância espacial/temporal), quantização (para descartar informação irrelevante) e codificação de símbolos (atribuindo códigos à saída do quantizador). Os decodificadores reverterão esses processos, com exceção da quantização. Formatos de arquivo de imagem, *containers* e padrões como JPEG e MPEG são utilizados para a organização e armazenamento dos dados. A codificação de Huffman é um método notável para remover a redundância de codificação, criando representações eficientes ao codificar primeiro os símbolos de fonte com menor probabilidade.
